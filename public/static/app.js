@@ -1,0 +1,207 @@
+// AIPLACIDE.COM Main JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+      const icon = mobileMenuBtn.querySelector('i');
+      if (mobileMenu.classList.contains('hidden')) {
+        icon.className = 'fas fa-bars text-xl text-neutral-heading';
+      } else {
+        icon.className = 'fas fa-times text-xl text-neutral-heading';
+      }
+    });
+  }
+  
+  // Sticky banner show/hide on scroll
+  const stickyBanner = document.getElementById('sticky-banner');
+  const closeBanner = document.getElementById('close-banner');
+  let bannerDismissed = sessionStorage.getItem('bannerDismissed') === 'true';
+  
+  if (stickyBanner && !bannerDismissed) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 800) {
+        stickyBanner.classList.add('show');
+      } else {
+        stickyBanner.classList.remove('show');
+      }
+    });
+    
+    if (closeBanner) {
+      closeBanner.addEventListener('click', function() {
+        stickyBanner.classList.remove('show');
+        stickyBanner.style.display = 'none';
+        sessionStorage.setItem('bannerDismissed', 'true');
+      });
+    }
+  }
+  
+  // Form submission handlers
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+      const formId = form.id;
+      
+      // Determine API endpoint based on form
+      let endpoint = '/api/newsletter';
+      if (formId.includes('speaking') || formId.includes('inquiry')) {
+        endpoint = '/api/speaking';
+      } else if (formId.includes('partnership') || formId.includes('contact')) {
+        endpoint = '/api/contact';
+      } else if (formId.includes('assessment')) {
+        endpoint = '/api/assessment';
+      }
+      
+      // Show loading state
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
+      submitBtn.disabled = true;
+      
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showToast('Success! ' + result.message, 'success');
+          form.reset();
+        } else {
+          showToast('Something went wrong. Please try again.', 'error');
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        showToast('Network error. Please try again.', 'error');
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  });
+  
+  // Toast notification function
+  function showToast(message, type = 'success') {
+    // Remove existing toasts
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+      existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+      <div class="flex items-center">
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} mr-3"></i>
+        <span>${message}</span>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    
+    // Show toast
+    setTimeout(() => toast.classList.add('show'), 100);
+    
+    // Hide toast after 4 seconds
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 4000);
+  }
+  
+  // Category filter for blog page
+  const categoryFilters = document.querySelectorAll('.category-filter');
+  const blogCards = document.querySelectorAll('.blog-card');
+  
+  categoryFilters.forEach(filter => {
+    filter.addEventListener('click', function() {
+      const category = this.dataset.category;
+      
+      // Update active state
+      categoryFilters.forEach(f => {
+        f.classList.remove('bg-primary-500', 'text-white');
+        f.classList.add('bg-neutral-bg', 'text-neutral-body');
+      });
+      this.classList.remove('bg-neutral-bg', 'text-neutral-body');
+      this.classList.add('bg-primary-500', 'text-white');
+      
+      // Filter cards
+      blogCards.forEach(card => {
+        if (category === 'All' || card.dataset.category === category) {
+          card.style.display = 'block';
+          card.classList.add('animate-fadeIn');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+  
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+  
+  // Add active state to current nav link
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
+      link.classList.add('active');
+    }
+  });
+  
+  // Intersection Observer for animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fadeInUp');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  // Observe elements with animate-on-scroll class
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
+  
+  // Copy link functionality
+  window.copyToClipboard = function(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Link copied to clipboard!', 'success');
+    }).catch(() => {
+      showToast('Failed to copy link', 'error');
+    });
+  };
+  
+  console.log('AIPLACIDE.COM initialized successfully');
+});

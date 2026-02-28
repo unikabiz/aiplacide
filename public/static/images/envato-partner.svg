@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40">
+  <defs>
+    <linearGradient id="envato-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#81b214"/>
+      <stop offset="100%" style="stop-color:#5a8a0e"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="36" height="36" rx="8" fill="url(#envato-grad)"/>
+  <path d="M14 14 L26 14 L26 26 L14 26 Z M18 18 L22 18 L22 22 L18 22 Z" fill="white" fill-rule="evenodd"/>
+  <text x="45" y="25" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#374151">Envato</text>
+  <text x="45" y="35" font-family="Inter, Arial, sans-serif" font-size="8" fill="#9CA3AF">Elements Partner</text>
+</svg>
