@@ -53,18 +53,31 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Determine API endpoint based on form
       let endpoint = '/api/newsletter';
+      let isNewsletter = true;
       if (formId.includes('speaking') || formId.includes('inquiry')) {
         endpoint = '/api/speaking';
+        isNewsletter = false;
       } else if (formId.includes('partnership') || formId.includes('contact')) {
         endpoint = '/api/contact';
+        isNewsletter = false;
       } else if (formId.includes('assessment')) {
         endpoint = '/api/assessment';
+        isNewsletter = false;
+      }
+      
+      // Validate email for newsletter
+      if (isNewsletter && data.email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+          showToast('Please enter a valid email address.', 'error');
+          return;
+        }
       }
       
       // Show loading state
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Subscribing...';
       submitBtn.disabled = true;
       
       try {
@@ -79,20 +92,70 @@ document.addEventListener('DOMContentLoaded', function() {
         const result = await response.json();
         
         if (result.success) {
-          showToast('Success! ' + result.message, 'success');
-          form.reset();
+          // Special handling for newsletter subscriptions
+          if (isNewsletter) {
+            showToast('🎉 ' + result.message, 'success');
+            form.reset();
+            
+            // Show success state on the form
+            const formContainer = form.closest('.bg-neutral-bg, .bg-gradient-to-br');
+            if (formContainer && formId.includes('main')) {
+              showNewsletterSuccess(form, data.email);
+            }
+            
+            // Track conversion (for analytics)
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'newsletter_signup', {
+                event_category: 'engagement',
+                event_label: data.interest || 'general',
+                value: 1
+              });
+            }
+          } else {
+            showToast('Success! ' + result.message, 'success');
+            form.reset();
+          }
         } else {
-          showToast('Something went wrong. Please try again.', 'error');
+          showToast(result.message || 'Something went wrong. Please try again.', 'error');
         }
       } catch (error) {
         console.error('Form submission error:', error);
-        showToast('Network error. Please try again.', 'error');
+        showToast('Network error. Please check your connection and try again.', 'error');
       } finally {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
       }
     });
   });
+  
+  // Newsletter success state
+  function showNewsletterSuccess(form, email) {
+    const successHtml = `
+      <div class="text-center py-8 animate-fadeIn">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-check text-4xl text-green-500"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-neutral-heading mb-3">You're In! 🎉</h3>
+        <p class="text-neutral-muted mb-4">
+          We've sent a confirmation email to<br>
+          <strong class="text-neutral-heading">${email}</strong>
+        </p>
+        <p class="text-sm text-neutral-muted">
+          Check your inbox and click the confirmation link to complete your subscription.
+        </p>
+        <div class="mt-6 pt-6 border-t border-neutral-border">
+          <p class="text-sm text-neutral-muted mb-3">
+            <i class="fas fa-gift text-accent-500 mr-2"></i>
+            Your free guide "The 10 Best Prompts for Business AI Agents" is on its way!
+          </p>
+        </div>
+        <button onclick="location.reload()" class="mt-6 text-primary-600 hover:text-primary-700 font-medium text-sm">
+          <i class="fas fa-redo mr-2"></i>Subscribe another email
+        </button>
+      </div>
+    `;
+    form.innerHTML = successHtml;
+  }
   
   // Toast notification function
   function showToast(message, type = 'success') {

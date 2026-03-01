@@ -4,4 +4,20 @@
   "compatibility_date": "2024-01-01",
   "compatibility_flags": ["nodejs_compat"],
   "pages_build_output_dir": "./dist"
+  
+  // ===== NEWSLETTER INTEGRATION =====
+  // Environment variables for newsletter providers are stored as Cloudflare Pages secrets
+  // Set them via: npx wrangler pages secret put <SECRET_NAME> --project-name aiplacide
+  //
+  // Required secrets for ConvertKit:
+  //   - NEWSLETTER_PROVIDER (set to 'convertkit')
+  //   - CONVERTKIT_API_KEY
+  //   - CONVERTKIT_FORM_ID
+  //
+  // Required secrets for Beehiiv:
+  //   - NEWSLETTER_PROVIDER (set to 'beehiiv')
+  //   - BEEHIIV_API_KEY
+  //   - BEEHIIV_PUBLICATION_ID
+  //
+  // For local development, copy .dev.vars.example to .dev.vars and fill in your keys
 }
