@@ -103,12 +103,45 @@ document.addEventListener('DOMContentLoaded', function() {
               showNewsletterSuccess(form, data.email);
             }
             
-            // Track conversion (for analytics)
-            if (typeof gtag !== 'undefined') {
+            // Track newsletter conversion with GA4
+            if (typeof window.trackNewsletterSignup === 'function') {
+              window.trackNewsletterSignup(data.interest || 'general');
+            } else if (typeof gtag !== 'undefined') {
               gtag('event', 'newsletter_signup', {
                 event_category: 'engagement',
                 event_label: data.interest || 'general',
                 value: 1
+              });
+              gtag('event', 'generate_lead', {
+                currency: 'USD',
+                value: 5.00
+              });
+            }
+          } else if (formId.includes('speaking') || formId.includes('inquiry')) {
+            showToast('Success! ' + result.message, 'success');
+            form.reset();
+            
+            // Track speaking inquiry with GA4
+            if (typeof window.trackSpeakingInquiry === 'function') {
+              window.trackSpeakingInquiry(data.eventType || 'general');
+            } else if (typeof gtag !== 'undefined') {
+              gtag('event', 'speaking_inquiry', {
+                event_category: 'leads',
+                event_label: data.eventType || 'general',
+                value: 50.00
+              });
+            }
+          } else if (formId.includes('contact')) {
+            showToast('Success! ' + result.message, 'success');
+            form.reset();
+            
+            // Track contact form with GA4
+            if (typeof window.trackContactForm === 'function') {
+              window.trackContactForm(data.subject || 'general');
+            } else if (typeof gtag !== 'undefined') {
+              gtag('event', 'contact_form_submit', {
+                event_category: 'engagement',
+                event_label: data.subject || 'general'
               });
             }
           } else {
@@ -266,5 +299,65 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   };
   
-  console.log('AIPLACIDE.COM initialized successfully');
+  // Track outbound links (external links)
+  document.querySelectorAll('a[href^="http"]').forEach(link => {
+    const href = link.getAttribute('href');
+    // Only track links that go to external domains
+    if (href && !href.includes('aiplacide.com') && !href.includes('aiplacide.pages.dev')) {
+      link.addEventListener('click', function(e) {
+        const linkText = this.textContent.trim() || this.getAttribute('aria-label') || 'Unknown';
+        if (typeof window.trackOutboundLink === 'function') {
+          window.trackOutboundLink(href, linkText);
+        } else if (typeof gtag !== 'undefined') {
+          gtag('event', 'click', {
+            event_category: 'outbound',
+            event_label: linkText,
+            transport_type: 'beacon'
+          });
+        }
+      });
+    }
+  });
+  
+  // Track page scroll depth
+  let scrollDepthTracked = { 25: false, 50: false, 75: false, 100: false };
+  window.addEventListener('scroll', function() {
+    const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+    
+    [25, 50, 75, 100].forEach(depth => {
+      if (scrollPercent >= depth && !scrollDepthTracked[depth]) {
+        scrollDepthTracked[depth] = true;
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'scroll_depth', {
+            event_category: 'engagement',
+            event_label: `${depth}%`,
+            value: depth
+          });
+        }
+      }
+    });
+  });
+  
+  // Track time on page
+  let timeOnPage = 0;
+  const timeTrackingIntervals = [30, 60, 120, 300]; // seconds
+  let trackedIntervals = {};
+  
+  setInterval(() => {
+    timeOnPage++;
+    timeTrackingIntervals.forEach(interval => {
+      if (timeOnPage === interval && !trackedIntervals[interval]) {
+        trackedIntervals[interval] = true;
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'time_on_page', {
+            event_category: 'engagement',
+            event_label: `${interval}s`,
+            value: interval
+          });
+        }
+      }
+    });
+  }, 1000);
+  
+  console.log('AIPLACIDE.COM initialized successfully with GA4 tracking');
 });

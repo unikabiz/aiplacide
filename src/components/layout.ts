@@ -7,6 +7,9 @@ export interface PageMeta {
   type?: string;
 }
 
+// Google Analytics 4 Measurement ID
+const GA_MEASUREMENT_ID = 'G-BD029NCM3Z';
+
 export const layout = (content: string, meta: PageMeta) => {
   const fullTitle = `${meta.title} | AIPLACIDE - Pierre Placide`;
   const ogImage = meta.ogImage || 'https://aiplacide.com/static/images/og-default.jpg';
@@ -22,6 +25,63 @@ export const layout = (content: string, meta: PageMeta) => {
   <meta name="description" content="${meta.description}">
   <meta name="author" content="Pierre Placide">
   <meta name="robots" content="index, follow">
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${GA_MEASUREMENT_ID}', {
+      page_title: '${meta.title}',
+      page_location: '${canonical}',
+      send_page_view: true
+    });
+    
+    // Custom event tracking functions
+    window.trackEvent = function(eventName, eventParams) {
+      gtag('event', eventName, eventParams);
+    };
+    
+    // Newsletter signup tracking
+    window.trackNewsletterSignup = function(interest) {
+      gtag('event', 'newsletter_signup', {
+        event_category: 'engagement',
+        event_label: interest || 'general',
+        value: 1
+      });
+      gtag('event', 'generate_lead', {
+        currency: 'USD',
+        value: 5.00
+      });
+    };
+    
+    // Contact form tracking
+    window.trackContactForm = function(formType) {
+      gtag('event', 'contact_form_submit', {
+        event_category: 'engagement',
+        event_label: formType || 'general'
+      });
+    };
+    
+    // Speaking inquiry tracking
+    window.trackSpeakingInquiry = function(eventType) {
+      gtag('event', 'speaking_inquiry', {
+        event_category: 'leads',
+        event_label: eventType || 'general',
+        value: 50.00
+      });
+    };
+    
+    // External link tracking
+    window.trackOutboundLink = function(url, linkName) {
+      gtag('event', 'click', {
+        event_category: 'outbound',
+        event_label: linkName || url,
+        transport_type: 'beacon'
+      });
+    };
+  </script>
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="${type}">
