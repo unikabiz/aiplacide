@@ -29,11 +29,11 @@ app.get('/terms', (c) => c.html(termsPage()))
 
 // API endpoints for forms
 
-// Newsletter Integration - Supports ConvertKit and Beehiiv
+// Newsletter Integration - Supports SendFox, ConvertKit, and Beehiiv
 app.post('/api/newsletter', async (c) => {
   try {
     const body = await c.req.json()
-    const { email, firstName, interest } = body
+    const { email, firstName, lastName, interest } = body
 
     if (!email) {
       return c.json({ success: false, message: 'Email is required' }, 400)
@@ -41,14 +41,69 @@ app.post('/api/newsletter', async (c) => {
 
     // Get environment bindings for API keys
     const env = c.env as {
+      NEWSLETTER_PROVIDER?: string
+      SENDFOX_API_TOKEN?: string
+      SENDFOX_LIST_ID?: string
       CONVERTKIT_API_KEY?: string
       CONVERTKIT_FORM_ID?: string
       BEEHIIV_API_KEY?: string
       BEEHIIV_PUBLICATION_ID?: string
-      NEWSLETTER_PROVIDER?: string
     }
 
-    const provider = env.NEWSLETTER_PROVIDER || 'convertkit'
+    const provider = env.NEWSLETTER_PROVIDER || 'sendfox'
+
+    // ===== SENDFOX INTEGRATION (DEFAULT) =====
+    if (provider === 'sendfox' && env.SENDFOX_API_TOKEN) {
+      const sendfoxPayload: {
+        email: string
+        first_name?: string
+        last_name?: string
+        lists?: number[]
+      } = {
+        email: email,
+        first_name: firstName || '',
+        last_name: lastName || ''
+      }
+
+      // Add to specific list if configured
+      if (env.SENDFOX_LIST_ID) {
+        sendfoxPayload.lists = [parseInt(env.SENDFOX_LIST_ID)]
+      }
+
+      const sendfoxResponse = await fetch('https://api.sendfox.com/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${env.SENDFOX_API_TOKEN}`
+        },
+        body: JSON.stringify(sendfoxPayload)
+      })
+
+      if (!sendfoxResponse.ok) {
+        const error = await sendfoxResponse.text()
+        console.error('SendFox error:', error)
+        
+        // Check for duplicate email (already subscribed)
+        if (sendfoxResponse.status === 422 || error.includes('already')) {
+          return c.json({
+            success: true,
+            message: 'You\'re already subscribed! Check your inbox for our latest newsletter.',
+            provider: 'sendfox',
+            already_subscribed: true
+          })
+        }
+        
+        return c.json({ success: false, message: 'Subscription failed. Please try again.' }, 500)
+      }
+
+      const result = await sendfoxResponse.json() as { id?: number }
+      return c.json({
+        success: true,
+        message: 'Welcome aboard! You\'re now subscribed to AI Transformation Insights.',
+        provider: 'sendfox',
+        subscriber_id: result.id
+      })
+    }
 
     // ===== CONVERTKIT INTEGRATION =====
     if (provider === 'convertkit' && env.CONVERTKIT_API_KEY && env.CONVERTKIT_FORM_ID) {
@@ -75,7 +130,7 @@ app.post('/api/newsletter', async (c) => {
         return c.json({ success: false, message: 'Subscription failed. Please try again.' }, 500)
       }
 
-      const result = await convertKitResponse.json()
+      const result = await convertKitResponse.json() as { subscription?: { subscriber?: { id?: number } } }
       return c.json({
         success: true,
         message: 'Welcome aboard! Check your email to confirm your subscription.',
@@ -115,7 +170,7 @@ app.post('/api/newsletter', async (c) => {
         return c.json({ success: false, message: 'Subscription failed. Please try again.' }, 500)
       }
 
-      const result = await beehiivResponse.json()
+      const result = await beehiivResponse.json() as { data?: { id?: string } }
       return c.json({
         success: true,
         message: 'Welcome aboard! Check your email to confirm your subscription.',
@@ -130,7 +185,7 @@ app.post('/api/newsletter', async (c) => {
       success: true,
       message: 'Thank you for subscribing! You\'ll hear from us soon.',
       provider: 'local',
-      note: 'Configure NEWSLETTER_PROVIDER, CONVERTKIT_API_KEY/FORM_ID or BEEHIIV_API_KEY/PUBLICATION_ID for full integration'
+      note: 'Configure NEWSLETTER_PROVIDER and provider-specific API keys for full integration'
     })
 
   } catch (error) {

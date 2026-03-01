@@ -3,8 +3,15 @@
 # For production, set these as Cloudflare Pages secrets
 
 # ===== NEWSLETTER PROVIDER SELECTION =====
-# Options: 'convertkit' or 'beehiiv'
-NEWSLETTER_PROVIDER=convertkit
+# Options: 'sendfox' (default), 'convertkit', or 'beehiiv'
+NEWSLETTER_PROVIDER=sendfox
+
+# ===== SENDFOX CONFIGURATION (RECOMMENDED) =====
+# Get your Personal Access Token from: https://sendfox.com/account/oauth
+# Click "Create New Token" and copy the token
+# Get your List ID from the URL when viewing a list: https://sendfox.com/lists/XXXXXX
+SENDFOX_API_TOKEN=your_sendfox_personal_access_token_here
+SENDFOX_LIST_ID=your_list_id_here
 
 # ===== CONVERTKIT CONFIGURATION =====
 # Get your API key from: https://app.convertkit.com/account_settings/developer_settings

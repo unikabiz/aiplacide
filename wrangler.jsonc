@@ -9,6 +9,11 @@
   // Environment variables for newsletter providers are stored as Cloudflare Pages secrets
   // Set them via: npx wrangler pages secret put <SECRET_NAME> --project-name aiplacide
   //
+  // Required secrets for SendFox (DEFAULT):
+  //   - NEWSLETTER_PROVIDER (set to 'sendfox')
+  //   - SENDFOX_API_TOKEN (Personal Access Token)
+  //   - SENDFOX_LIST_ID (optional, for specific list)
+  //
   // Required secrets for ConvertKit:
   //   - NEWSLETTER_PROVIDER (set to 'convertkit')
   //   - CONVERTKIT_API_KEY
