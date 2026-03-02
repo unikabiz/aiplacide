@@ -10,6 +10,7 @@ import { contactPage } from './pages/contact'
 import { newsletterPage } from './pages/newsletter'
 import { privacyPage } from './pages/privacy'
 import { termsPage } from './pages/terms'
+import { bookingPage } from './pages/booking'
 
 const app = new Hono()
 
@@ -24,6 +25,7 @@ app.get('/blog/:slug', (c) => c.html(blogPage(c.req.param('slug'))))
 app.get('/speaking', (c) => c.html(speakingPage()))
 app.get('/contact', (c) => c.html(contactPage()))
 app.get('/newsletter', (c) => c.html(newsletterPage()))
+app.get('/booking', (c) => c.html(bookingPage()))
 app.get('/privacy', (c) => c.html(privacyPage()))
 app.get('/terms', (c) => c.html(termsPage()))
 

@@ -42,18 +42,18 @@ export const contactPage = () => {
           </p>
           
           <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/booking" class="inline-flex items-center justify-center px-8 py-4 bg-accent-500 text-white font-bold rounded-xl hover:bg-accent-600 shadow-lg transition-all">
+              <i class="fas fa-calendar-check mr-3"></i>
+              <span>Book a Free Discovery Call</span>
+            </a>
             <a href="https://unikabiz.com" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-8 py-4 bg-primary-500 text-white font-bold rounded-xl hover:bg-primary-600 shadow-lg transition-all">
               <span>Visit UNIKABIZ.COM</span>
               <i class="fas fa-external-link-alt ml-3"></i>
             </a>
-            <a href="mailto:pierre@aiplacide.com" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 font-semibold rounded-xl border-2 border-primary-200 hover:border-primary-300 hover:bg-primary-50 transition-all">
-              <i class="fas fa-envelope mr-3"></i>
-              Quick Question? Email Me
-            </a>
           </div>
           
           <p class="text-sm text-neutral-muted mt-4">
-            Explore our services, view case studies, and schedule a strategy consultation at UNIKABIZ.
+            <i class="fas fa-clock mr-2"></i>Schedule a 30-minute discovery call to explore how AI can transform your business.
           </p>
         </div>
         

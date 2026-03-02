@@ -233,10 +233,14 @@ const header = () => `
         <a href="/contact" class="nav-link px-4 py-2 rounded-lg text-neutral-body hover:text-primary-500 hover:bg-primary-50 transition-all">Contact</a>
       </div>
       
-      <!-- CTA Button -->
-      <div class="hidden md:flex items-center space-x-4">
-        <a href="https://unikabiz.com" target="_blank" rel="noopener" class="btn-primary inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg hover:from-primary-600 hover:to-primary-700 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
-          <span>Explore UNIKABIZ</span>
+      <!-- CTA Buttons -->
+      <div class="hidden md:flex items-center space-x-3">
+        <a href="/booking" class="btn-secondary inline-flex items-center px-4 py-2.5 bg-accent-500 text-white font-semibold rounded-lg hover:bg-accent-600 shadow-md hover:shadow-lg transition-all">
+          <i class="fas fa-calendar-check mr-2 text-sm"></i>
+          <span>Book a Call</span>
+        </a>
+        <a href="https://unikabiz.com" target="_blank" rel="noopener" class="btn-primary inline-flex items-center px-4 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg hover:from-primary-600 hover:to-primary-700 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+          <span>UNIKABIZ</span>
           <i class="fas fa-arrow-right ml-2 text-sm"></i>
         </a>
       </div>
@@ -255,7 +259,10 @@ const header = () => `
         <a href="/speaking" class="px-4 py-3 rounded-lg text-neutral-body hover:text-primary-500 hover:bg-primary-50 transition-all">Speaking</a>
         <a href="/newsletter" class="px-4 py-3 rounded-lg text-neutral-body hover:text-primary-500 hover:bg-primary-50 transition-all">Newsletter</a>
         <a href="/contact" class="px-4 py-3 rounded-lg text-neutral-body hover:text-primary-500 hover:bg-primary-50 transition-all">Contact</a>
-        <a href="https://unikabiz.com" target="_blank" rel="noopener" class="mt-2 mx-4 text-center py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg">
+        <a href="/booking" class="mt-2 mx-4 text-center py-3 bg-accent-500 text-white font-semibold rounded-lg">
+          <i class="fas fa-calendar-check mr-2"></i>Book a Call
+        </a>
+        <a href="https://unikabiz.com" target="_blank" rel="noopener" class="mx-4 text-center py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg">
           Explore UNIKABIZ <i class="fas fa-arrow-right ml-2"></i>
         </a>
       </div>
@@ -304,6 +311,7 @@ const footer = () => `
           <li><a href="/blog" class="text-gray-400 hover:text-white transition-colors">Blog / Insights</a></li>
           <li><a href="/speaking" class="text-gray-400 hover:text-white transition-colors">Speaking & Media</a></li>
           <li><a href="/newsletter" class="text-gray-400 hover:text-white transition-colors">Newsletter</a></li>
+          <li><a href="/booking" class="text-accent-400 hover:text-accent-300 transition-colors font-medium"><i class="fas fa-calendar-check mr-2 text-xs"></i>Book a Call</a></li>
           <li><a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
         </ul>
       </div>
