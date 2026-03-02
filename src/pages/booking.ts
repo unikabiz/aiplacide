@@ -1,6 +1,9 @@
 import { layout } from '../components/layout'
 
 export const bookingPage = () => {
+  // TidyCal Configuration - Update with your TidyCal username
+  const TIDYCAL_USERNAME = 'aiplacide';
+  
   const content = `
 <!-- Hero Section -->
 <section class="bg-gradient-to-br from-white via-primary-50/30 to-white py-16">
@@ -50,9 +53,9 @@ export const bookingPage = () => {
             <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>AI readiness assessment</li>
             <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Explore potential solutions</li>
           </ul>
-          <button onclick="openCalendlyPopup('discovery-call')" class="w-full py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors">
+          <a href="https://tidycal.com/${TIDYCAL_USERNAME}/discovery-call" target="_blank" rel="noopener" onclick="trackBookingClick('discovery-call')" class="block w-full py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors text-center">
             <i class="fas fa-calendar-plus mr-2"></i>Schedule Discovery Call
-          </button>
+          </a>
         </div>
       </div>
       
@@ -80,9 +83,9 @@ export const bookingPage = () => {
             <li class="flex items-start"><i class="fas fa-check text-accent-500 mt-1 mr-2"></i>ROI projections & timeline</li>
             <li class="flex items-start"><i class="fas fa-check text-accent-500 mt-1 mr-2"></i>Recording & summary provided</li>
           </ul>
-          <button onclick="openCalendlyPopup('strategy-session')" class="w-full py-3 bg-accent-500 text-white font-semibold rounded-lg hover:bg-accent-600 transition-colors">
+          <a href="https://tidycal.com/${TIDYCAL_USERNAME}/strategy-session" target="_blank" rel="noopener" onclick="trackBookingClick('strategy-session')" class="block w-full py-3 bg-accent-500 text-white font-semibold rounded-lg hover:bg-accent-600 transition-colors text-center">
             <i class="fas fa-calendar-plus mr-2"></i>Book Strategy Session
-          </button>
+          </a>
         </div>
       </div>
       
@@ -108,9 +111,9 @@ export const bookingPage = () => {
             <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-2"></i>Podcast interviews</li>
             <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-2"></i>Media features</li>
           </ul>
-          <button onclick="openCalendlyPopup('speaking-inquiry')" class="w-full py-3 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-600 transition-colors">
+          <a href="https://tidycal.com/${TIDYCAL_USERNAME}/speaking-inquiry" target="_blank" rel="noopener" onclick="trackBookingClick('speaking-inquiry')" class="block w-full py-3 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-600 transition-colors text-center">
             <i class="fas fa-calendar-plus mr-2"></i>Discuss Speaking
-          </button>
+          </a>
         </div>
       </div>
       
@@ -130,9 +133,9 @@ export const bookingPage = () => {
             <p class="text-neutral-muted text-sm mb-4">
               15-minute casual conversation for networking, quick questions, or just to connect. No agenda required.
             </p>
-            <button onclick="openCalendlyPopup('coffee-chat')" class="text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+            <a href="https://tidycal.com/${TIDYCAL_USERNAME}/coffee-chat" target="_blank" rel="noopener" onclick="trackBookingClick('coffee-chat')" class="text-primary-600 font-semibold hover:text-primary-700 transition-colors">
               <i class="fas fa-calendar-alt mr-2"></i>Schedule Coffee Chat →
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -148,9 +151,9 @@ export const bookingPage = () => {
             <p class="text-neutral-muted text-sm mb-4">
               30-minute call to explore potential collaborations, joint ventures, or strategic partnerships.
             </p>
-            <button onclick="openCalendlyPopup('partnership')" class="text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+            <a href="https://tidycal.com/${TIDYCAL_USERNAME}/partnership" target="_blank" rel="noopener" onclick="trackBookingClick('partnership')" class="text-primary-600 font-semibold hover:text-primary-700 transition-colors">
               <i class="fas fa-calendar-alt mr-2"></i>Discuss Partnership →
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -165,28 +168,21 @@ export const bookingPage = () => {
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-8">
       <h2 class="text-2xl font-bold text-neutral-heading mb-4">Or View My Full Availability</h2>
-      <p class="text-neutral-muted">Browse all available time slots and book directly below</p>
+      <p class="text-neutral-muted">Browse all available booking types and schedule directly below</p>
     </div>
     
-    <!-- Calendar Embed Placeholder (will be replaced by actual embed) -->
-    <div id="calendly-inline-embed" class="bg-white rounded-2xl shadow-lg border border-neutral-border overflow-hidden" style="min-height: 700px;">
-      <div class="flex flex-col items-center justify-center h-full py-20">
-        <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
-          <i class="fas fa-calendar-alt text-2xl text-primary-600"></i>
-        </div>
-        <h3 class="text-xl font-semibold text-neutral-heading mb-2">Calendar Loading...</h3>
-        <p class="text-neutral-muted text-center max-w-md mb-6">
-          If the calendar doesn't load, you can also book directly via:
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="https://calendly.com/aiplacide" target="_blank" rel="noopener" class="inline-flex items-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors">
-            <i class="fas fa-external-link-alt mr-2"></i>Open Calendly
-          </a>
-          <a href="mailto:pierre@aiplacide.com?subject=Meeting Request" class="inline-flex items-center px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg border-2 border-primary-200 hover:border-primary-300 transition-colors">
-            <i class="fas fa-envelope mr-2"></i>Email to Schedule
-          </a>
-        </div>
-      </div>
+    <!-- TidyCal Inline Embed -->
+    <div class="bg-white rounded-2xl shadow-lg border border-neutral-border overflow-hidden" style="min-height: 700px;">
+      <div class="tidycal-embed" data-path="${TIDYCAL_USERNAME}"></div>
+    </div>
+    
+    <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+      <a href="https://tidycal.com/${TIDYCAL_USERNAME}" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors">
+        <i class="fas fa-external-link-alt mr-2"></i>Open Full Calendar
+      </a>
+      <a href="mailto:pierre@aiplacide.com?subject=Meeting Request" class="inline-flex items-center justify-center px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg border-2 border-primary-200 hover:border-primary-300 transition-colors">
+        <i class="fas fa-envelope mr-2"></i>Email to Schedule
+      </a>
     </div>
     
     <p class="text-center text-sm text-neutral-muted mt-6">
@@ -420,10 +416,10 @@ export const bookingPage = () => {
       The best time to start transforming your business with AI is now. Let's have a conversation that could change everything.
     </p>
     <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <button onclick="scrollToCalendar()" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 font-bold rounded-xl hover:bg-gray-100 shadow-lg transition-all">
+      <a href="https://tidycal.com/${TIDYCAL_USERNAME}/discovery-call" target="_blank" rel="noopener" onclick="trackBookingClick('discovery-call')" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 font-bold rounded-xl hover:bg-gray-100 shadow-lg transition-all">
         <i class="fas fa-calendar-check mr-3"></i>
         Book Your Free Call Now
-      </button>
+      </a>
       <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-bold rounded-xl border-2 border-white/50 hover:border-white hover:bg-white/10 transition-all">
         <i class="fas fa-envelope mr-3"></i>
         Have Questions First?
@@ -432,45 +428,29 @@ export const bookingPage = () => {
   </div>
 </section>
 
-<!-- Calendly Widget Script -->
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<!-- TidyCal Embed Script -->
+<script src="https://tidycal.com/js/embed.js" async></script>
 <script>
-// Calendly configuration - Replace with your actual Calendly username
-const CALENDLY_USERNAME = 'aiplacide';
+// TidyCal Configuration
+const TIDYCAL_USERNAME = '${TIDYCAL_USERNAME}';
 
-// Meeting type URLs
-const meetingTypes = {
-  'discovery-call': CALENDLY_USERNAME + '/discovery-call',
-  'strategy-session': CALENDLY_USERNAME + '/strategy-session',
-  'speaking-inquiry': CALENDLY_USERNAME + '/speaking-inquiry',
-  'coffee-chat': CALENDLY_USERNAME + '/coffee-chat',
-  'partnership': CALENDLY_USERNAME + '/partnership-discussion'
-};
-
-// Open Calendly popup for specific meeting type
-function openCalendlyPopup(type) {
-  const url = meetingTypes[type] || CALENDLY_USERNAME;
-  
-  // Track booking intent in GA4
+// Track booking clicks in GA4
+function trackBookingClick(meetingType) {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'booking_initiated', {
       event_category: 'scheduling',
-      event_label: type,
-      meeting_type: type
+      event_label: meetingType,
+      meeting_type: meetingType,
+      booking_platform: 'tidycal'
+    });
+    
+    // Track as a lead event
+    gtag('event', 'generate_lead', {
+      currency: 'USD',
+      value: meetingType === 'strategy-session' ? 150.00 : 25.00
     });
   }
-  
-  Calendly.initPopupWidget({
-    url: 'https://calendly.com/' + url,
-    prefill: {},
-    utm: {
-      utmSource: 'aiplacide-website',
-      utmMedium: 'booking-page',
-      utmCampaign: type
-    }
-  });
-  
-  return false;
+  return true; // Allow the link to proceed
 }
 
 // Scroll to calendar embed
@@ -481,47 +461,18 @@ function scrollToCalendar() {
   }
 }
 
-// Initialize inline embed when page loads
+// Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
-  const embedContainer = document.getElementById('calendly-inline-embed');
+  console.log('TidyCal booking page initialized');
   
-  if (typeof Calendly !== 'undefined' && embedContainer) {
-    // Clear placeholder and initialize embed
-    embedContainer.innerHTML = '';
-    Calendly.initInlineWidget({
-      url: 'https://calendly.com/' + CALENDLY_USERNAME,
-      parentElement: embedContainer,
-      prefill: {},
-      utm: {
-        utmSource: 'aiplacide-website',
-        utmMedium: 'inline-embed',
-        utmCampaign: 'booking-page'
-      }
+  // Track page view with booking intent
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'page_view', {
+      page_title: 'Booking Page',
+      page_location: window.location.href,
+      content_group: 'booking'
     });
-    
-    // Set minimum height for embed
-    embedContainer.style.minHeight = '700px';
   }
-  
-  // Track Calendly events
-  window.addEventListener('message', function(e) {
-    if (e.data.event && e.data.event.indexOf('calendly') === 0) {
-      // Track booking completed
-      if (e.data.event === 'calendly.event_scheduled') {
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'booking_completed', {
-            event_category: 'scheduling',
-            event_label: 'meeting_booked',
-            value: 1
-          });
-          gtag('event', 'generate_lead', {
-            currency: 'USD',
-            value: 25.00
-          });
-        }
-      }
-    }
-  });
 });
 </script>
 `;
