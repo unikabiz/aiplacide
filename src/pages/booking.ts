@@ -1,8 +1,8 @@
 import { layout } from '../components/layout'
 
 export const bookingPage = () => {
-  // TidyCal Configuration - Update with your TidyCal username
-  const TIDYCAL_USERNAME = 'aiplacide';
+  // TidyCal Configuration - Custom subdomain
+  const TIDYCAL_BASE_URL = 'https://schedule.aiplacide.com';
   
   const content = `
 <!-- Hero Section -->
@@ -53,7 +53,7 @@ export const bookingPage = () => {
             <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>AI readiness assessment</li>
             <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i>Explore potential solutions</li>
           </ul>
-          <a href="https://tidycal.com/${TIDYCAL_USERNAME}/discovery-call" target="_blank" rel="noopener" onclick="trackBookingClick('discovery-call')" class="block w-full py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors text-center">
+          <a href="${TIDYCAL_BASE_URL}/discovery-call" target="_blank" rel="noopener" onclick="trackBookingClick('discovery-call')" class="block w-full py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors text-center">
             <i class="fas fa-calendar-plus mr-2"></i>Schedule Discovery Call
           </a>
         </div>
@@ -83,7 +83,7 @@ export const bookingPage = () => {
             <li class="flex items-start"><i class="fas fa-check text-accent-500 mt-1 mr-2"></i>ROI projections & timeline</li>
             <li class="flex items-start"><i class="fas fa-check text-accent-500 mt-1 mr-2"></i>Recording & summary provided</li>
           </ul>
-          <a href="https://tidycal.com/${TIDYCAL_USERNAME}/strategy-session" target="_blank" rel="noopener" onclick="trackBookingClick('strategy-session')" class="block w-full py-3 bg-accent-500 text-white font-semibold rounded-lg hover:bg-accent-600 transition-colors text-center">
+          <a href="${TIDYCAL_BASE_URL}/strategy-session" target="_blank" rel="noopener" onclick="trackBookingClick('strategy-session')" class="block w-full py-3 bg-accent-500 text-white font-semibold rounded-lg hover:bg-accent-600 transition-colors text-center">
             <i class="fas fa-calendar-plus mr-2"></i>Book Strategy Session
           </a>
         </div>
@@ -111,7 +111,7 @@ export const bookingPage = () => {
             <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-2"></i>Podcast interviews</li>
             <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-2"></i>Media features</li>
           </ul>
-          <a href="https://tidycal.com/${TIDYCAL_USERNAME}/speaking-inquiry" target="_blank" rel="noopener" onclick="trackBookingClick('speaking-inquiry')" class="block w-full py-3 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-600 transition-colors text-center">
+          <a href="${TIDYCAL_BASE_URL}/speaking-inquiry" target="_blank" rel="noopener" onclick="trackBookingClick('speaking-inquiry')" class="block w-full py-3 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-600 transition-colors text-center">
             <i class="fas fa-calendar-plus mr-2"></i>Discuss Speaking
           </a>
         </div>
@@ -133,7 +133,7 @@ export const bookingPage = () => {
             <p class="text-neutral-muted text-sm mb-4">
               15-minute casual conversation for networking, quick questions, or just to connect. No agenda required.
             </p>
-            <a href="https://tidycal.com/${TIDYCAL_USERNAME}/coffee-chat" target="_blank" rel="noopener" onclick="trackBookingClick('coffee-chat')" class="text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+            <a href="${TIDYCAL_BASE_URL}/coffee-chat" target="_blank" rel="noopener" onclick="trackBookingClick('coffee-chat')" class="text-primary-600 font-semibold hover:text-primary-700 transition-colors">
               <i class="fas fa-calendar-alt mr-2"></i>Schedule Coffee Chat →
             </a>
           </div>
@@ -151,7 +151,7 @@ export const bookingPage = () => {
             <p class="text-neutral-muted text-sm mb-4">
               30-minute call to explore potential collaborations, joint ventures, or strategic partnerships.
             </p>
-            <a href="https://tidycal.com/${TIDYCAL_USERNAME}/partnership" target="_blank" rel="noopener" onclick="trackBookingClick('partnership')" class="text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+            <a href="${TIDYCAL_BASE_URL}/partnership" target="_blank" rel="noopener" onclick="trackBookingClick('partnership')" class="text-primary-600 font-semibold hover:text-primary-700 transition-colors">
               <i class="fas fa-calendar-alt mr-2"></i>Discuss Partnership →
             </a>
           </div>
@@ -173,11 +173,11 @@ export const bookingPage = () => {
     
     <!-- TidyCal Inline Embed -->
     <div class="bg-white rounded-2xl shadow-lg border border-neutral-border overflow-hidden" style="min-height: 700px;">
-      <div class="tidycal-embed" data-path="${TIDYCAL_USERNAME}"></div>
+      <div class="tidycal-embed" data-path="aiplacide"></div>
     </div>
     
     <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
-      <a href="https://tidycal.com/${TIDYCAL_USERNAME}" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors">
+      <a href="${TIDYCAL_BASE_URL}" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors">
         <i class="fas fa-external-link-alt mr-2"></i>Open Full Calendar
       </a>
       <a href="mailto:pierre@aiplacide.com?subject=Meeting Request" class="inline-flex items-center justify-center px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg border-2 border-primary-200 hover:border-primary-300 transition-colors">
@@ -416,7 +416,7 @@ export const bookingPage = () => {
       The best time to start transforming your business with AI is now. Let's have a conversation that could change everything.
     </p>
     <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <a href="https://tidycal.com/${TIDYCAL_USERNAME}/discovery-call" target="_blank" rel="noopener" onclick="trackBookingClick('discovery-call')" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 font-bold rounded-xl hover:bg-gray-100 shadow-lg transition-all">
+      <a href="${TIDYCAL_BASE_URL}/discovery-call" target="_blank" rel="noopener" onclick="trackBookingClick('discovery-call')" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 font-bold rounded-xl hover:bg-gray-100 shadow-lg transition-all">
         <i class="fas fa-calendar-check mr-3"></i>
         Book Your Free Call Now
       </a>
@@ -432,7 +432,7 @@ export const bookingPage = () => {
 <script src="https://tidycal.com/js/embed.js" async></script>
 <script>
 // TidyCal Configuration
-const TIDYCAL_USERNAME = '${TIDYCAL_USERNAME}';
+const TIDYCAL_BASE_URL = '${TIDYCAL_BASE_URL}';
 
 // Track booking clicks in GA4
 function trackBookingClick(meetingType) {
