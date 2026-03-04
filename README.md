@@ -5,91 +5,116 @@
 - **Owner**: Pierre Placide
 - **Goal**: Establish Pierre Placide as THE thought leader in Genspark custom super agent development
 - **Stack**: Hono + TypeScript + Cloudflare Pages + TailwindCSS
+- **Last Updated**: March 4, 2026
 
 ## 🌐 Live URLs
-- **Preview**: https://3000-il337mmzkkw815psrejpr-18e660f9.sandbox.novita.ai
-- **Production**: https://aiplacide.com (to be deployed)
-- **GitHub**: (To be set up)
+
+| URL | Status | Purpose |
+|-----|--------|---------|
+| https://www.aiplacide.com | ✅ Live | Production (Primary) |
+| https://aiplacide.pages.dev | ✅ Live | Cloudflare Pages |
+| https://aiplacide.com | ⏳ Propagating | Root domain redirect |
+| https://github.com/unikabiz/aiplacide | ✅ Live | GitHub Repository |
+| https://schedule.aiplacide.com | ✅ Live | TidyCal Booking |
 
 ## ✅ Completed Features
 
-### Pages Implemented
-1. **Homepage** (`/`)
-   - Hero section with trust indicators
-   - About Me teaser
-   - Latest Insights preview (3 featured posts)
-   - AI Readiness Assessment lead magnet
-   - Social proof & testimonials
-   - Newsletter subscription
-   - Sticky CTA banner
+### Pages Implemented (9 Pages)
+| Page | Route | Description |
+|------|-------|-------------|
+| Homepage | `/` | Hero, About teaser, Insights preview, AI Assessment, Testimonials, Newsletter |
+| About | `/about` | Journey narrative, Philosophy, Credentials, Projects |
+| Blog/Insights | `/blog` | Category filtering, Featured posts, Individual posts (`/blog/:slug`) |
+| Speaking & Media | `/speaking` | Engagements, Podcasts, Media mentions, Inquiry form |
+| Contact | `/contact` | Business inquiries, Speaking form, Partnership form |
+| Newsletter | `/newsletter` | Value proposition, Signup form, Sample preview |
+| **Booking** | `/booking` | TidyCal integration, 5 meeting types, FAQ |
+| Privacy Policy | `/privacy` | Legal compliance |
+| Terms of Use | `/terms` | Legal compliance |
 
-2. **About Page** (`/about`)
-   - Journey narrative (3 sections: Foundation, Discovery, Today)
-   - Philosophy comparison cards
-   - Personal touch section
-   - Credentials & partnerships
-   - Notable project highlights
+### Integrations
+| Service | Status | Purpose |
+|---------|--------|---------|
+| **SendFox** | ✅ Active | Newsletter (List ID: 629247) |
+| **Resend** | ✅ Active | Email notifications |
+| **GA4** | ✅ Active | Analytics (G-BD029NCM3Z) |
+| **TidyCal** | ✅ Active | Booking (schedule.aiplacide.com) |
+| **Cloudflare Pages** | ✅ Active | Hosting & CDN |
 
-3. **Blog/Insights Hub** (`/blog`)
-   - Category filtering
-   - Featured posts grid
-   - Individual blog post pages (`/blog/:slug`)
-   - Author box
-   - Social sharing
-   - Related posts
-
-4. **Speaking & Media** (`/speaking`)
-   - Speaking engagements timeline
-   - Podcast appearances
-   - Media mentions & logo wall
-   - Topics I speak on (4 topics)
-   - Speaking inquiry form
-
-5. **Contact Page** (`/contact`)
-   - Business inquiries (UNIKABIZ redirect)
-   - Speaking & media inquiry form
-   - Partnership inquiry form
-   - Social media links
-   - "What to Expect" section
-
-6. **Newsletter Page** (`/newsletter`)
-   - Full value proposition
-   - Signup form with interest selection
-   - Sample newsletter preview
-   - Testimonials
-   - Stats (subscribers, open rate, etc.)
-
-7. **Legal Pages**
-   - Privacy Policy (`/privacy`)
-   - Terms of Use (`/terms`)
+### TidyCal Booking Types
+| Meeting | Duration | Price | URL |
+|---------|----------|-------|-----|
+| Discovery Call | 30 min | Free | schedule.aiplacide.com/discovery-call |
+| Strategy Session | 60 min | $150 | schedule.aiplacide.com/strategy-session |
+| Speaking Inquiry | 20 min | Free | schedule.aiplacide.com/speaking-inquiry |
+| Coffee Chat | 15 min | Free | schedule.aiplacide.com/coffee-chat |
+| Partnership | 30 min | Free | schedule.aiplacide.com/partnership |
 
 ### Technical Features
-- ✅ SEO optimization with meta tags, Open Graph, Twitter Cards
+- ✅ SEO optimization (meta tags, Open Graph, Twitter Cards)
 - ✅ Schema.org Person markup
 - ✅ Mobile-responsive design (Tailwind CSS)
-- ✅ Form submission API endpoints
+- ✅ Form submission API endpoints with email notifications
 - ✅ Toast notifications
 - ✅ Mobile navigation menu
 - ✅ Sticky CTA banner (scroll-triggered)
 - ✅ Category filtering on blog
-- ✅ Static assets serving
-- ✅ Custom color palette (Primary blue, Accent orange)
+- ✅ GA4 event tracking (newsletter, contact, booking)
+- ✅ Custom color palette (Primary #0066CC, Accent #FF6B35)
 - ✅ Inter + Lora typography
+
+## 🖼️ Images (36 Total)
+
+### Profile Images
+- `pierre-hero.jpg` - Hero section headshot
+- `pierre-about.jpg` - About page photo
+- `pierre-avatar.jpg` - Small avatar
+- `pierre-workspace.jpg` - Workspace photo
+- `pierre-family.jpg` - Personal section
+- `pierre-speaking.jpg` - Speaking engagement
+- `pierre-friendly.jpg` - Contact page
+- `pierre-placide.jpg` - Schema.org profile
+
+### Blog Images (8)
+- `blog-ai-mistakes.jpg`, `blog-comparison.jpg`, `blog-genspark-guide.jpg`
+- `blog-multi-agent.jpg`, `blog-pricing.jpg`, `blog-prompt.jpg`
+- `blog-roadmap.jpg`, `blog-trends.jpg`
+
+### Open Graph Images (7)
+- `og-home.jpg`, `og-about.jpg`, `og-blog.jpg`, `og-speaking.jpg`
+- `og-newsletter.jpg`, `og-contact.jpg`, `og-default.jpg`
+
+### Testimonial Avatars (3)
+- `testimonial-1.jpg`, `testimonial-2.jpg`, `testimonial-3.jpg`
+
+### Event Photos (2)
+- `event-aiworld.jpg`, `event-techforward.jpg`
+
+### Media Logos (4)
+- `logo-forbes.svg`, `logo-techcrunch.svg`
+- `logo-entrepreneur.svg`, `logo-venturebeat.svg`
+
+### Partner Logos (2)
+- `genspark-partner.svg`, `envato-partner.svg`
+
+### App Icons
+- `favicon.svg`, `apple-touch-icon.png`
 
 ## 📁 Project Structure
 ```
 webapp/
 ├── src/
-│   ├── index.tsx              # Main Hono application
+│   ├── index.tsx              # Main Hono application (routes + API)
 │   ├── components/
-│   │   └── layout.ts          # Layout with header, footer, SEO
+│   │   └── layout.ts          # Layout with header, footer, SEO, GA4
 │   └── pages/
 │       ├── home.ts            # Homepage
 │       ├── about.ts           # About page
-│       ├── blog.ts            # Blog hub + posts
+│       ├── blog.ts            # Blog hub + individual posts
 │       ├── speaking.ts        # Speaking & Media
 │       ├── contact.ts         # Contact page
 │       ├── newsletter.ts      # Newsletter page
+│       ├── booking.ts         # TidyCal booking page
 │       ├── privacy.ts         # Privacy Policy
 │       └── terms.ts           # Terms of Use
 ├── public/
@@ -97,9 +122,7 @@ webapp/
 │       ├── style.css          # Custom CSS
 │       ├── app.js             # Client-side JavaScript
 │       ├── favicon.svg        # Favicon
-│       └── images/
-│           ├── genspark-partner.svg
-│           └── envato-partner.svg
+│       └── images/            # 36 image files
 ├── dist/                      # Build output
 ├── ecosystem.config.cjs       # PM2 configuration
 ├── wrangler.jsonc             # Cloudflare configuration
@@ -109,33 +132,13 @@ webapp/
 ```
 
 ## 🚀 API Endpoints
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/newsletter` | POST | Newsletter subscription |
-| `/api/contact` | POST | Contact form submission |
-| `/api/speaking` | POST | Speaking inquiry |
-| `/api/assessment` | POST | Assessment form |
 
-## 📋 Data Models
-
-### Blog Posts (Static)
-```typescript
-{
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;  // 'AI Agent Innovation' | 'Business Strategy' | etc.
-  readTime: string;
-  date: string;
-  image: string;
-  featured: boolean;
-}
-```
-
-### Form Submissions
-- In production, integrate with ConvertKit/Beehiiv for newsletter
-- Use email service for contact forms
-- Consider CRM integration (HubSpot, Pipedrive)
+| Endpoint | Method | Description | Integration |
+|----------|--------|-------------|-------------|
+| `/api/newsletter` | POST | Newsletter subscription | SendFox |
+| `/api/contact` | POST | Contact form | Resend email |
+| `/api/speaking` | POST | Speaking inquiry | Resend email |
+| `/api/assessment` | POST | AI Assessment | Resend email |
 
 ## 🎨 Design System
 
@@ -149,98 +152,72 @@ webapp/
 - **Body**: Inter (400-500 weight)
 - **Serif (quotes)**: Lora (italic)
 
-## 📦 Deployment Options
-
-### Option 1: Cloudflare Pages (Recommended for Edge Performance)
-```bash
-# Build and deploy
-npm run build
-npx wrangler pages deploy dist --project-name aiplacide
-
-# Or one command
-npm run deploy:prod
-```
-
-### Option 2: Export Static for Hostinger
-Since Hostinger uses traditional hosting, you can:
-
-1. **Build the project**:
-```bash
-npm run build
-```
-
-2. **The `dist/` folder contains**:
-   - `_worker.js` - The server-side code
-   - Static assets from `public/`
-
-3. **For Hostinger (Static Export)**:
-   You'll need to pre-render all pages. Generate static HTML files:
-   - Access each route and save the HTML output
-   - Upload to Hostinger's public_html folder
-
-4. **Recommended**: Use Cloudflare Pages (free tier) and point AIPLACIDE.COM to it
-
-### DNS Configuration for Hostinger
-If domain is on Hostinger but hosting on Cloudflare Pages:
-1. In Hostinger DNS settings, add CNAME record:
-   - `@` → `aiplacide.pages.dev`
-   - `www` → `aiplacide.pages.dev`
-
-2. In Cloudflare Pages, add custom domain `aiplacide.com`
-
-## 🔧 Development
+## 🔧 Development & Deployment
 
 ### Local Development
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npm install          # Install dependencies
+npm run dev          # Start Vite dev server
+npm run build        # Build for production
+npm run preview      # Preview production build
 ```
 
-### Sandbox Development
+### Deploy to Cloudflare Pages
 ```bash
 npm run build
-pm2 start ecosystem.config.cjs
-# Access at http://localhost:3000
+npx wrangler pages deploy dist --project-name aiplacide
 ```
 
-## 🖼️ Required Images
+### Environment Variables (Cloudflare Secrets)
+```bash
+# Newsletter
+NEWSLETTER_PROVIDER=sendfox
+SENDFOX_API_TOKEN=your_token
+SENDFOX_LIST_ID=629247
 
-Add these images to `/public/static/images/`:
-- `pierre-hero.jpg` - Hero section headshot
-- `pierre-about.jpg` - About page photo
-- `pierre-avatar.jpg` - Small avatar
-- `pierre-workspace.jpg` - Workspace photo
-- `pierre-family.jpg` - Personal touch
-- `pierre-speaking.jpg` - Speaking engagement
-- `pierre-friendly.jpg` - Contact page
-- `blog-*.jpg` - Blog post featured images
-- `testimonial-*.jpg` - Testimonial photos
-- `og-*.jpg` - Open Graph images
-- `apple-touch-icon.png` - iOS icon
+# Email Notifications
+RESEND_API_KEY=your_key
+NOTIFICATION_EMAIL=pierre@aiplacide.com
+```
 
-## 📈 Next Steps
+## 📊 DNS Configuration
 
-1. **Add Real Images**: Replace placeholder images with actual photos
-2. **Newsletter Integration**: Connect forms to ConvertKit/Beehiiv
-3. **Analytics**: Add Google Analytics 4 and Google Search Console
-4. **CRM Integration**: Connect contact forms to HubSpot/Pipedrive
-5. **Blog CMS**: Consider Sanity or Contentful for dynamic blog content
-6. **Assessment Tool**: Build actual AI Readiness Assessment functionality
-7. **AI Chat Widget**: Integrate Genspark chat widget on homepage
+### Hostinger DNS Settings
+| Type | Name | Value |
+|------|------|-------|
+| CNAME | www | aiplacide.pages.dev |
+| Redirect | @ | https://www.aiplacide.com (301) |
+
+### For Resend Email (Add to DNS)
+| Type | Name | Value |
+|------|------|-------|
+| TXT | resend._domainkey | (from Resend dashboard) |
+| TXT | @ | v=spf1 include:_spf.hostinger.com include:amazonses.com ~all |
+
+## 📈 Analytics
+
+- **GA4 Property**: G-BD029NCM3Z
+- **Events Tracked**: page_view, newsletter_signup, contact_form_submit, speaking_inquiry, booking_initiated, generate_lead
+
+## 📋 Pending Tasks
+
+- [ ] Verify aiplacide.com redirect (DNS propagation)
+- [ ] Verify domain in Resend.com for email sending
+- [ ] Create TidyCal booking types with exact slugs
+- [ ] Connect Stripe to TidyCal for paid sessions
 
 ## 📞 Contact
+
 - **Email**: pierre@aiplacide.com
 - **Business**: https://unikabiz.com
+- **Booking**: https://schedule.aiplacide.com
 - **Location**: Naples, FL
+
+## 🔗 Social Media
+
+- **LinkedIn**: https://linkedin.com/in/pierreplacide
+- **Twitter**: https://twitter.com/aiplacide
+- **YouTube**: https://youtube.com/@aiplacide
 
 ---
 Built with ❤️ by Pierre Placide | AIPLACIDE | UNIKABIZ
