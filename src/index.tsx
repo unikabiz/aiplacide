@@ -17,6 +17,10 @@ const app = new Hono()
 // Serve static files
 app.use('/static/*', serveStatic())
 
+// SEO files - serve from public folder
+app.get('/robots.txt', serveStatic({ path: './robots.txt' }))
+app.get('/sitemap.xml', serveStatic({ path: './sitemap.xml' }))
+
 // Pages
 app.get('/', (c) => c.html(homePage()))
 app.get('/about', (c) => c.html(aboutPage()))
